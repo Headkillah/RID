@@ -72,10 +72,6 @@ namespace ResourceIndustryDistrict
         }
         public void SortAndChangeAscending(string colName)
         {
-            DebugOutputPanel.AddMessage(PluginManager.MessageType.Message, $"colName: {colName}");
-            DebugOutputPanel.AddMessage(PluginManager.MessageType.Message, $"lastCol: {lastCol}");
-            DebugOutputPanel.AddMessage(PluginManager.MessageType.Message, $"ascending: {ascending}");
-
             if (lastCol == colName)
             {
                 
@@ -89,10 +85,6 @@ namespace ResourceIndustryDistrict
             
             
             lastCol = colName;
-
-            DebugOutputPanel.AddMessage(PluginManager.MessageType.Message, $"colName: {colName}");
-            DebugOutputPanel.AddMessage(PluginManager.MessageType.Message, $"lastCol: {lastCol}");
-            DebugOutputPanel.AddMessage(PluginManager.MessageType.Message, $"ascending: {ascending}");
         }
     }
 }

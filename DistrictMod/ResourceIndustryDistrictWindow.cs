@@ -1,4 +1,5 @@
-﻿using ColossalFramework.UI;
+﻿using ColossalFramework.Plugins;
+using ColossalFramework.UI;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
@@ -18,20 +19,23 @@ namespace ResourceIndustryDistrict
     
         public override void Awake()
         {
+            DebugOutputPanel.AddMessage(PluginManager.MessageType.Message, $"Awake()");
+
             base.Awake();
         }
 
         //this seems to be called initially
         public override void Start()
         {
+            DebugOutputPanel.AddMessage(PluginManager.MessageType.Message, $"Start()");
             base.Start();
-
+            
             relativePosition = new Vector3(396, 58);
             backgroundSprite = "MenuPanel2";
 
             isInteractive = true;
             width = 550;
-            height = 200;
+            height = 700;
 
             enabled = true;
 
@@ -43,6 +47,12 @@ namespace ResourceIndustryDistrict
             SetupControls();
             SetupScrollPanel();
             PopulateTransportLineLabels();
+        }
+
+        //this gets called every frame
+        public override void Update()
+        {
+            //DebugOutputPanel.AddMessage(PluginManager.MessageType.Message, $"Update()");
         }
 
         public void SetupControls()
@@ -121,7 +131,7 @@ namespace ResourceIndustryDistrict
         }
 
 
-        public void PopulateTransportLineLabels(string sortFieldName = "Name", bool ascending = false)
+        public void PopulateTransportLineLabels(string sortFieldName = "Name", bool ascending = true)
         {
             foreach (var index in DistrictResourceCalculator.GetResourceDistribution())
             {
@@ -150,11 +160,6 @@ namespace ResourceIndustryDistrict
             }
         }
 
-        //this gets called every frame
-        public override void Update()
-        {
-        }
-
         public void ClearTransportLineLabels()
         {
             // the obvious approach using RemoveUIComponent doesn't work -
@@ -165,7 +170,7 @@ namespace ResourceIndustryDistrict
             districtLineLabels.Clear();
         }
 
-        private void SortTransportLinesMethod(string sortFieldName = "Name", bool ascending = false)
+        public void SortTransportLinesMethod(string sortFieldName = "Name", bool ascending = true)
         {
             ClearTransportLineLabels();
             PopulateTransportLineLabels(sortFieldName, ascending);

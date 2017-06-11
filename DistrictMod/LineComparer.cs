@@ -11,7 +11,7 @@ namespace ResourceIndustryDistrict
         private string _sortFieldName;
         private bool _ascending;
 
-        public LineComparer(string sortFieldName = "Name", bool ascending = false) : base()
+        public LineComparer(string sortFieldName = "Name", bool ascending = true) : base()
         {
             _sortFieldName = sortFieldName;
             _ascending = ascending;

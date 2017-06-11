@@ -64,6 +64,7 @@ namespace ResourceIndustryDistrict
                 this.buildingWindow.isVisible = true;
                 this.buildingWindow.BringToFront();
                 this.buildingWindow.Show();
+                this.buildingWindow.SortTransportLinesMethod();
             }
             else
             {
