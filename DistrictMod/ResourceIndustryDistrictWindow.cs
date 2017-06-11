@@ -88,7 +88,7 @@ namespace ResourceIndustryDistrict
             _scrollablePanel.autoLayout = true;
             _scrollablePanel.autoLayoutDirection = LayoutDirection.Vertical;
             _scrollablePanel.autoLayoutStart = LayoutStart.TopLeft;
-            _scrollablePanel.autoLayoutPadding = new RectOffset(0, 0, 1, 1);
+            _scrollablePanel.autoLayoutPadding = new RectOffset(2, 5, 0, 0);
             _scrollablePanel.clipChildren = true;
 
             _scrollablePanel.pivot = UIPivotPoint.TopLeft;

@@ -77,10 +77,11 @@ namespace ResourceIndustryDistrict
             oreLabel.relativePosition = new Vector2(290, 0);
             forestLabel.relativePosition = new Vector2(360, 0);
             sizeLabel.relativePosition = new Vector2(430, 0);
-            districtTypeLabel.relativePosition = new Vector2(500, 0);
+            districtTypeLabel.relativePosition = new Vector2(508 , 8);
 
             districtNameLabel.textColor = new Color32(182, 221, 254, 255);
             districtTypeLabel.spriteName = GetSpriteFromType(Type);
+            districtTypeLabel.size = new Vector2(25, 25);
             oilLabel.textColor = new Color32(182, 221, 254, 255);
             fertilityLabel.textColor = new Color32(182, 221, 254, 255);
             oreLabel.textColor = new Color32(182, 221, 254, 255);
@@ -89,15 +90,15 @@ namespace ResourceIndustryDistrict
 
             eventMouseHover += (component, param) =>
             {
-                color = new Color32(180, 0, 0, 255);
+                color = new Color32(180, 180, 180, 255);
             };
 
             eventMouseLeave += (component, param) =>
             {
                 if (IsOdd)
-                    color = new Color32(0, 0, 150, 255);
+                    color = new Color32(150, 150, 150, 255);
                 else
-                    color = new Color32(0, 130, 0, 255);
+                    color = new Color32(130, 130, 130, 255);
             };
 
 

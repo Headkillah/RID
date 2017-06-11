@@ -1,4 +1,5 @@
 /**/*.dll
 /**/*.pdb
 .vs/
-DistrictMod/obj/Debug/RID.csproj.FileListAbsolute.txt
+DistrictMod/obj/*
+DistrictMod/bin/*
