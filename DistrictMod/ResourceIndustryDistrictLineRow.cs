@@ -11,14 +11,12 @@ namespace ResourceIndustryDistrict
         public event LineNameChangedHandler LineNameChanged;
 
         private UILabel districtNameLabel;
-        private UILabel districtTypeLabel;
+        private UISprite districtTypeLabel;
         private UILabel oilLabel;
         private UILabel fertilityLabel;
         private UILabel oreLabel;
         private UILabel forestLabel;
         private UILabel sizeLabel;
-
-        //private InstanceID _instanceID;
 
         public string Name { get; set; }
         public int Type { get; set; }
@@ -28,6 +26,8 @@ namespace ResourceIndustryDistrict
         public double Forest { get; set; }
         public int Size { get; set; }
 
+        public bool IsOdd { get; set; }
+
         public override void Awake()
         {
             base.Awake();
@@ -36,12 +36,35 @@ namespace ResourceIndustryDistrict
             width = 550;
         }
 
+        public string GetSpriteFromType(int type)
+        {
+            switch(type)
+            {
+                case 0:
+                    return "IconPolicyNone";
+                case 1:
+                    return "IconPolicyForest";
+                case 2:
+                    return "IconPolicyFarming";
+                case 4:
+                    return "IconPolicyOil";
+                case 8:
+                    return "IconPolicyOre";
+                case 16:
+                    return "IconPolicyLeisure";
+                case 32:
+                    return "IconPolicyTourist";
+                default:
+                    return "";
+            }
+        }
+
         public override void Start()
         {
             base.Start();
 
             districtNameLabel = AddUIComponent<UILabel>();
-            districtTypeLabel = AddUIComponent<UILabel>();
+            districtTypeLabel = AddUIComponent<UISprite>();
             oilLabel = AddUIComponent<UILabel>();
             fertilityLabel = AddUIComponent<UILabel>();
             oreLabel = AddUIComponent<UILabel>();
@@ -50,30 +73,47 @@ namespace ResourceIndustryDistrict
 
             districtNameLabel.relativePosition = new Vector2(5, 0);
             oilLabel.relativePosition = new Vector2(150, 0);
-            fertilityLabel.relativePosition = new Vector2(200, 0);
-            oreLabel.relativePosition = new Vector2(250, 0);
-            forestLabel.relativePosition = new Vector2(300, 0);
-            sizeLabel.relativePosition = new Vector2(350, 0);
-            districtTypeLabel.relativePosition = new Vector2(400, 0);
+            fertilityLabel.relativePosition = new Vector2(220, 0);
+            oreLabel.relativePosition = new Vector2(290, 0);
+            forestLabel.relativePosition = new Vector2(360, 0);
+            sizeLabel.relativePosition = new Vector2(430, 0);
+            districtTypeLabel.relativePosition = new Vector2(500, 0);
 
             districtNameLabel.textColor = new Color32(182, 221, 254, 255);
-            districtTypeLabel.textColor = new Color32(182, 221, 254, 255);
+            districtTypeLabel.spriteName = GetSpriteFromType(Type);
             oilLabel.textColor = new Color32(182, 221, 254, 255);
             fertilityLabel.textColor = new Color32(182, 221, 254, 255);
             oreLabel.textColor = new Color32(182, 221, 254, 255);
             forestLabel.textColor = new Color32(182, 221, 254, 255);
             sizeLabel.textColor = new Color32(182, 221, 254, 255);
 
+            eventMouseHover += (component, param) =>
+            {
+                color = new Color32(180, 0, 0, 255);
+            };
+
+            eventMouseLeave += (component, param) =>
+            {
+                if (IsOdd)
+                    color = new Color32(0, 0, 150, 255);
+                else
+                    color = new Color32(0, 130, 0, 255);
+            };
+
+
             districtNameLabel.textScale = 0.8f;
-            districtTypeLabel.textScale = 0.8f;
             oilLabel.textScale = 0.8f;
             fertilityLabel.textScale = 0.8f;
             oreLabel.textScale = 0.8f;
             forestLabel.textScale = 0.8f;
-            sizeLabel.textScale = 0.8f;
-
+            sizeLabel.textScale = 0.8f;           
+            
+            // zebra stripes background
             backgroundSprite = "GenericPanelLight";
-            color = new Color32(150, 150, 150, 255);
+            if (IsOdd)
+                color = new Color32(150, 150, 150, 255);
+            else
+                color = new Color32(130, 130, 130, 255);
 
             // center elements in row
             UIComponent[] children = GetComponentsInChildren<UIComponent>();
@@ -91,7 +131,7 @@ namespace ResourceIndustryDistrict
             base.Update();
 
             districtNameLabel.text = Name.ToString();
-            districtTypeLabel.text = Type.ToString();
+            //districtTypeLabel.text = Type.ToString();
             oilLabel.text = Oil.ToString("P");
             fertilityLabel.text = Fertility.ToString("P");
             oreLabel.text = Ore.ToString("P");

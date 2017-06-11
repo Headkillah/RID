@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace ResourceIndustryDistrict
 {
-    public delegate void SortTransportLinesDelegate(string sortFieldName = "Name");
+    public delegate void SortTransportLinesDelegate(string sortFieldName = "Name", bool ascending = false);
 
     public class ResourceIndustryDistrictWindow : UIPanel
     {
@@ -31,7 +31,7 @@ namespace ResourceIndustryDistrict
 
             isInteractive = true;
             width = 550;
-            height = 700;
+            height = 200;
 
             enabled = true;
 
@@ -121,11 +121,11 @@ namespace ResourceIndustryDistrict
         }
 
 
-        public void PopulateTransportLineLabels(string sortFieldName = "Name")
+        public void PopulateTransportLineLabels(string sortFieldName = "Name", bool ascending = false)
         {
             foreach (var index in DistrictResourceCalculator.GetResourceDistribution())
             {
-                var go = new GameObject("hello");
+                var go = new GameObject();
                 var uic = go.AddComponent<ResourceIndustryDistrictLineRow>();
                 uic.Name =      index.Name;
                 uic.Oil = index.GetPrecentage(index.Oil);
@@ -138,11 +138,14 @@ namespace ResourceIndustryDistrict
                 districtLineLabels.Add(go);
             }
 
-            districtLineLabels.Sort(new LineComparer(sortFieldName));
+            districtLineLabels.Sort(new LineComparer(sortFieldName, ascending));
 
+            bool odd = false;
             foreach (var go in districtLineLabels)
             {
                 _scrollablePanel.AttachUIComponent(go);
+                go.GetComponent<ResourceIndustryDistrictLineRow>().IsOdd = odd;
+                odd = !odd;
 
             }
         }
@@ -162,10 +165,10 @@ namespace ResourceIndustryDistrict
             districtLineLabels.Clear();
         }
 
-        private void SortTransportLinesMethod(string sortFieldName = "Name")
+        private void SortTransportLinesMethod(string sortFieldName = "Name", bool ascending = false)
         {
             ClearTransportLineLabels();
-            PopulateTransportLineLabels(sortFieldName);
+            PopulateTransportLineLabels(sortFieldName, ascending);
         }
     }
 }
