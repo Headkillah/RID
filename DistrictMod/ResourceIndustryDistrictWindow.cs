@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace ResourceIndustryDistrict
 {
-    public delegate void SortTransportLinesDelegate(string sortFieldName = "Name", bool ascending = false);
+    public delegate void SortDistrictLinesDelegate(string sortFieldName = "Name", bool ascending = false);
 
     public class ResourceIndustryDistrictWindow : UIPanel
     {
@@ -46,7 +46,7 @@ namespace ResourceIndustryDistrict
 
             SetupControls();
             SetupScrollPanel();
-            PopulateTransportLineLabels();
+            PopulateDistrictLineLabels();
         }
 
         //this gets called every frame
@@ -65,7 +65,7 @@ namespace ResourceIndustryDistrict
             
 
             _captions = AddUIComponent<UICaptionContainer>();
-            _captions.SortDelegate = SortTransportLinesMethod;
+            _captions.SortDelegate = SortDistrictLinesMethod;
             districtLineLabels = new List<GameObject>();
         }
 
@@ -131,7 +131,7 @@ namespace ResourceIndustryDistrict
         }
 
 
-        public void PopulateTransportLineLabels(string sortFieldName = "Name", bool ascending = true)
+        public void PopulateDistrictLineLabels(string sortFieldName = "Name", bool ascending = true)
         {
             foreach (var index in DistrictResourceCalculator.GetResourceDistribution())
             {
@@ -160,7 +160,7 @@ namespace ResourceIndustryDistrict
             }
         }
 
-        public void ClearTransportLineLabels()
+        public void ClearDistrictLineLabels()
         {
             // the obvious approach using RemoveUIComponent doesn't work -
             // probably because it only removes the Component in the PoolList
@@ -170,10 +170,10 @@ namespace ResourceIndustryDistrict
             districtLineLabels.Clear();
         }
 
-        public void SortTransportLinesMethod(string sortFieldName = "Name", bool ascending = true)
+        public void SortDistrictLinesMethod(string sortFieldName = "Name", bool ascending = true)
         {
-            ClearTransportLineLabels();
-            PopulateTransportLineLabels(sortFieldName, ascending);
+            ClearDistrictLineLabels();
+            PopulateDistrictLineLabels(sortFieldName, ascending);
         }
     }
 }

@@ -7,7 +7,7 @@ namespace ResourceIndustryDistrict
 {
     public class UICaptionContainer : UIPanel
     {
-        public SortTransportLinesDelegate SortDelegate { get; set; }
+        public SortDistrictLinesDelegate SortDelegate { get; set; }
 
         private UILabel _name;
         private UILabel _oil;
@@ -57,7 +57,7 @@ namespace ResourceIndustryDistrict
             _type.text = "Type";
  
             // sort by each column
-            // ultimately based on value from UITransportLineRow (via LineComparer)
+            // ultimately based on value from ResourceIndustiryDistrictLineRow (via LineComparer)
             _name.eventClick += (component, param) => SortAndChangeAscending("Name");
             _oil.eventClick += (component, eventParam) => SortAndChangeAscending("Oil");
             _ore.eventClick += (component, param) => SortAndChangeAscending("Ore");
