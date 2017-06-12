@@ -8,7 +8,7 @@ namespace ResourceIndustryDistrict
         public string Name { get; set; }
         public int Type { get; set; }
         public int Size { get; set; }
-        public int Fertility { get; set; }
+        public int Farming { get; set; }
         public int Forest { get; set; }
         public int Oil { get; set; }
         public int Ore { get; set; }

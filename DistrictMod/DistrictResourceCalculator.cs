@@ -34,14 +34,14 @@ namespace ResourceIndustryDistrict
                     int oreFromMap = resourcesFromMap[resouceIndex].m_ore;
                     int oilFromMap = resourcesFromMap[resouceIndex].m_oil;
                     int forestFromMap = resourcesFromMap[resouceIndex].m_forest;
-                    int fertilityFromMap = resourcesFromMap[resouceIndex].m_fertility;
-                    if (oreFromMap + oilFromMap + forestFromMap + fertilityFromMap != 0)
+                    int farmingFromMap = resourcesFromMap[resouceIndex].m_fertility;
+                    if (oreFromMap + oilFromMap + forestFromMap + farmingFromMap != 0)
                     {
                         result.Size++;
                         result.Ore += resourcesFromMap[resouceIndex].m_ore;
                         result.Oil += resourcesFromMap[resouceIndex].m_oil;
                         result.Forest += resourcesFromMap[resouceIndex].m_forest;
-                        result.Fertility += resourcesFromMap[resouceIndex].m_fertility;
+                        result.Farming += resourcesFromMap[resouceIndex].m_fertility;
                         if (districtId != 0)
                         {
                             resourcesFromMap[resouceIndex].m_ore = 0;

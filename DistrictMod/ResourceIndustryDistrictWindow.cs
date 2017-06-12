@@ -139,7 +139,7 @@ namespace ResourceIndustryDistrict
                 var uic = go.AddComponent<ResourceIndustryDistrictLineRow>();
                 uic.Name =      index.Name;
                 uic.Oil = index.GetPrecentage(index.Oil);
-                uic.Fertility = index.GetPrecentage(index.Fertility);
+                uic.Farming = index.GetPrecentage(index.Farming);
                 uic.Ore = index.GetPrecentage(index.Ore);
                 uic.Forest = index.GetPrecentage(index.Forest);
                 uic.Size =      index.Size;

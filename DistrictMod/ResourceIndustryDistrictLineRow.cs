@@ -13,7 +13,7 @@ namespace ResourceIndustryDistrict
         private UILabel districtNameLabel;
         private UISprite districtTypeLabel;
         private UILabel oilLabel;
-        private UILabel fertilityLabel;
+        private UILabel farmingLabel;
         private UILabel oreLabel;
         private UILabel forestLabel;
         private UILabel sizeLabel;
@@ -21,7 +21,7 @@ namespace ResourceIndustryDistrict
         public string Name { get; set; }
         public int Type { get; set; }
         public double Oil { get; set; }
-        public double Fertility { get; set; }
+        public double Farming { get; set; }
         public double Ore { get; set; }
         public double Forest { get; set; }
         public int Size { get; set; }
@@ -66,14 +66,14 @@ namespace ResourceIndustryDistrict
             districtNameLabel = AddUIComponent<UILabel>();
             districtTypeLabel = AddUIComponent<UISprite>();
             oilLabel = AddUIComponent<UILabel>();
-            fertilityLabel = AddUIComponent<UILabel>();
+            farmingLabel = AddUIComponent<UILabel>();
             oreLabel = AddUIComponent<UILabel>();
             forestLabel = AddUIComponent<UILabel>();
             sizeLabel = AddUIComponent<UILabel>();
 
             districtNameLabel.relativePosition = new Vector2(5, 0);
             oilLabel.relativePosition = new Vector2(150, 0);
-            fertilityLabel.relativePosition = new Vector2(220, 0);
+            farmingLabel.relativePosition = new Vector2(220, 0);
             oreLabel.relativePosition = new Vector2(290, 0);
             forestLabel.relativePosition = new Vector2(360, 0);
             sizeLabel.relativePosition = new Vector2(430, 0);
@@ -83,7 +83,7 @@ namespace ResourceIndustryDistrict
             districtTypeLabel.spriteName = GetSpriteFromType(Type);
             districtTypeLabel.size = new Vector2(25, 25);
             oilLabel.textColor = new Color32(182, 221, 254, 255);
-            fertilityLabel.textColor = new Color32(182, 221, 254, 255);
+            farmingLabel.textColor = new Color32(182, 221, 254, 255);
             oreLabel.textColor = new Color32(182, 221, 254, 255);
             forestLabel.textColor = new Color32(182, 221, 254, 255);
             sizeLabel.textColor = new Color32(182, 221, 254, 255);
@@ -104,7 +104,7 @@ namespace ResourceIndustryDistrict
 
             districtNameLabel.textScale = 0.8f;
             oilLabel.textScale = 0.8f;
-            fertilityLabel.textScale = 0.8f;
+            farmingLabel.textScale = 0.8f;
             oreLabel.textScale = 0.8f;
             forestLabel.textScale = 0.8f;
             sizeLabel.textScale = 0.8f;           
@@ -134,7 +134,7 @@ namespace ResourceIndustryDistrict
             districtNameLabel.text = Name.ToString();
             //districtTypeLabel.text = Type.ToString();
             oilLabel.text = Oil.ToString("P");
-            fertilityLabel.text = Fertility.ToString("P");
+            farmingLabel.text = Farming.ToString("P");
             oreLabel.text = Ore.ToString("P");
             forestLabel.text = Forest.ToString("P");
             sizeLabel.text = Size.ToString();

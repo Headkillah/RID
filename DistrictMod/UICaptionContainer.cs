@@ -12,7 +12,7 @@ namespace ResourceIndustryDistrict
         private UILabel _name;
         private UILabel _oil;
         private UILabel _ore;
-        private UILabel _fertility;
+        private UILabel _farming;
         private UILabel _forest;
         private UILabel _type;
         private UILabel _size;
@@ -29,12 +29,12 @@ namespace ResourceIndustryDistrict
             _size = AddUIComponent<UILabel>();
             _oil = AddUIComponent<UILabel>();
             _ore = AddUIComponent<UILabel>();
-            _fertility = AddUIComponent<UILabel>();
+            _farming = AddUIComponent<UILabel>();
             _forest = AddUIComponent<UILabel>();
 
             _name.relativePosition = new Vector3(5, 0);
             _oil.relativePosition = new Vector3(150, 0);
-            _fertility.relativePosition = new Vector3(220, 0);
+            _farming.relativePosition = new Vector3(220, 0);
             _ore.relativePosition = new Vector3(290, 0);
             _forest.relativePosition = new Vector3(360, 0);
             _size.relativePosition = new Vector2(430, 0);
@@ -43,14 +43,14 @@ namespace ResourceIndustryDistrict
             _name.textScale = 0.85f;
             _oil.textScale = 0.85f;
             _ore.textScale = 0.85f;
-            _fertility.textScale = 0.85f;
+            _farming.textScale = 0.85f;
             _forest.textScale = 0.85f;
             _size.textScale = 0.85f;
             _type.textScale = 0.85f;
 
             _name.text = "Name";
             _oil.text = "Oil";
-            _fertility.text = "Fertility";
+            _farming.text = "Farming";
             _ore.text = "Ore";
             _forest.text = "Forest";
             _size.text = "Size";
@@ -61,7 +61,7 @@ namespace ResourceIndustryDistrict
             _name.eventClick += (component, param) => SortAndChangeAscending("Name");
             _oil.eventClick += (component, eventParam) => SortAndChangeAscending("Oil");
             _ore.eventClick += (component, param) => SortAndChangeAscending("Ore");
-            _fertility.eventClick += (component, param) => SortAndChangeAscending("Fertility");
+            _farming.eventClick += (component, param) => SortAndChangeAscending("farming");
             _forest.eventClick += (component, param) => SortAndChangeAscending("Forest");
             _size.eventClick += (component, param) => SortAndChangeAscending("Size");
             _type.eventClick += (component, param) => SortAndChangeAscending("Type");
