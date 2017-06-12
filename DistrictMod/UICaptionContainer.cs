@@ -61,7 +61,7 @@ namespace ResourceIndustryDistrict
             _name.eventClick += (component, param) => SortAndChangeAscending("Name");
             _oil.eventClick += (component, eventParam) => SortAndChangeAscending("Oil");
             _ore.eventClick += (component, param) => SortAndChangeAscending("Ore");
-            _farming.eventClick += (component, param) => SortAndChangeAscending("farming");
+            _farming.eventClick += (component, param) => SortAndChangeAscending("Farming");
             _forest.eventClick += (component, param) => SortAndChangeAscending("Forest");
             _size.eventClick += (component, param) => SortAndChangeAscending("Size");
             _type.eventClick += (component, param) => SortAndChangeAscending("Type");

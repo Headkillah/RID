@@ -78,15 +78,24 @@ namespace ResourceIndustryDistrict
             forestLabel.relativePosition = new Vector2(360, 0);
             sizeLabel.relativePosition = new Vector2(430, 0);
             districtTypeLabel.relativePosition = new Vector2(508 , 8);
+            
+            districtNameLabel.text = Name.ToString();
+            oilLabel.text = Oil.ToString("P");
+            farmingLabel.text = Farming.ToString("P");
+            oreLabel.text = Ore.ToString("P");
+            forestLabel.text = Forest.ToString("P");
+            sizeLabel.text = Size.ToString();
 
-            districtNameLabel.textColor = new Color32(182, 221, 254, 255);
             districtTypeLabel.spriteName = GetSpriteFromType(Type);
             districtTypeLabel.size = new Vector2(25, 25);
-            oilLabel.textColor = new Color32(182, 221, 254, 255);
-            farmingLabel.textColor = new Color32(182, 221, 254, 255);
-            oreLabel.textColor = new Color32(182, 221, 254, 255);
-            forestLabel.textColor = new Color32(182, 221, 254, 255);
+
+            districtNameLabel.textColor = new Color32(182, 221, 254, 255);
+            oilLabel.textColor = Oil == 0 ? new Color32(165, 165, 165, 255) : new Color32(182, 221, 254, 255);
+            farmingLabel.textColor = Farming == 0 ? new Color32(165, 165, 165, 255) : new Color32(182, 221, 254, 255);
+            oreLabel.textColor = Ore == 0 ? new Color32(165, 165, 165, 255) : new Color32(182, 221, 254, 255);
+            forestLabel.textColor = Forest == 0 ? new Color32(165, 165, 165, 255) : new Color32(182, 221, 254, 255);
             sizeLabel.textColor = new Color32(182, 221, 254, 255);
+
 
             eventMouseHover += (component, param) =>
             {
@@ -130,14 +139,6 @@ namespace ResourceIndustryDistrict
         public override void Update()
         {
             base.Update();
-
-            districtNameLabel.text = Name.ToString();
-            //districtTypeLabel.text = Type.ToString();
-            oilLabel.text = Oil.ToString("P");
-            farmingLabel.text = Farming.ToString("P");
-            oreLabel.text = Ore.ToString("P");
-            forestLabel.text = Forest.ToString("P");
-            sizeLabel.text = Size.ToString();
         }
     }
 }
