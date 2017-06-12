@@ -37,7 +37,6 @@ namespace ResourceIndustryDistrict
                     int farmingFromMap = resourcesFromMap[resouceIndex].m_fertility;
                     if (oreFromMap + oilFromMap + forestFromMap + farmingFromMap != 0)
                     {
-                        result.Size++;
                         result.Ore += resourcesFromMap[resouceIndex].m_ore;
                         result.Oil += resourcesFromMap[resouceIndex].m_oil;
                         result.Forest += resourcesFromMap[resouceIndex].m_forest;
@@ -50,6 +49,7 @@ namespace ResourceIndustryDistrict
                             resourcesFromMap[resouceIndex].m_fertility = 0;
                         }
                     }
+                    result.Size++;
                 }
             }
             return calculatedResources;
