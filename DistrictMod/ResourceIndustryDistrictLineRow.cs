@@ -1,6 +1,7 @@
 ﻿using System;
 using ColossalFramework.UI;
 using UnityEngine;
+using ColossalFramework.Plugins;
 
 namespace ResourceIndustryDistrict
 {
@@ -9,6 +10,7 @@ namespace ResourceIndustryDistrict
 
         public delegate void LineNameChangedHandler(ushort lineID);
         public event LineNameChangedHandler LineNameChanged;
+        public bool totals;
 
         private UILabel districtNameLabel;
         private UISprite districtTypeLabel;
@@ -34,6 +36,7 @@ namespace ResourceIndustryDistrict
 
             height = 32;
             width = 550;
+            totals = false;
         }
 
         public string GetSpriteFromType(int type)
@@ -80,20 +83,16 @@ namespace ResourceIndustryDistrict
             districtTypeLabel.relativePosition = new Vector2(508 , 8);
             
             districtNameLabel.text = Name.ToString();
-            oilLabel.text = Oil.ToString("P");
-            farmingLabel.text = Farming.ToString("P");
-            oreLabel.text = Ore.ToString("P");
-            forestLabel.text = Forest.ToString("P");
             sizeLabel.text = Size.ToString();
-
+            
             districtTypeLabel.spriteName = GetSpriteFromType(Type);
             districtTypeLabel.size = new Vector2(25, 25);
 
             districtNameLabel.textColor = new Color32(182, 221, 254, 255);
-            oilLabel.textColor = Oil == 0 ? new Color32(165, 165, 165, 255) : new Color32(182, 221, 254, 255);
-            farmingLabel.textColor = Farming == 0 ? new Color32(165, 165, 165, 255) : new Color32(182, 221, 254, 255);
-            oreLabel.textColor = Ore == 0 ? new Color32(165, 165, 165, 255) : new Color32(182, 221, 254, 255);
-            forestLabel.textColor = Forest == 0 ? new Color32(165, 165, 165, 255) : new Color32(182, 221, 254, 255);
+            oilLabel.textColor = Oil == 0 ? new Color32(165, 165, 165, 128) : new Color32(182, 221, 254, 255);
+            farmingLabel.textColor = Farming == 0 ? new Color32(165, 165, 165, 128) : new Color32(182, 221, 254, 255);
+            oreLabel.textColor = Ore == 0 ? new Color32(165, 165, 165, 128) : new Color32(182, 221, 254, 255);
+            forestLabel.textColor = Forest == 0 ? new Color32(165, 165, 165, 128) : new Color32(182, 221, 254, 255);
             sizeLabel.textColor = new Color32(182, 221, 254, 255);
 
 
@@ -139,6 +138,11 @@ namespace ResourceIndustryDistrict
         public override void Update()
         {
             base.Update();
+
+            oilLabel.text = totals ? Oil.ToString() : Oil.ToString("P");
+            farmingLabel.text = totals ? Farming.ToString() : Farming.ToString("P");
+            oreLabel.text = totals ? Ore.ToString() : Ore.ToString("P");
+            forestLabel.text = totals ? Forest.ToString() : Forest.ToString("P");
         }
     }
 }

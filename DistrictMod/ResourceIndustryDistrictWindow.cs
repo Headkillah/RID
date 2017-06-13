@@ -11,6 +11,7 @@ namespace ResourceIndustryDistrict
     public class ResourceIndustryDistrictWindow : UIPanel
     {
         private UITitleContainer _title;
+        private UIOptionsContainer _options;
         private UICaptionContainer _captions;
         private List<GameObject> districtLineLabels;
         private UIScrollablePanel _scrollablePanel;
@@ -62,10 +63,12 @@ namespace ResourceIndustryDistrict
 
             _title.IconSprite = "FeatureDistricts";
             _title.TitleText = "Resource Industry Districts";
-            
 
+            _options = AddUIComponent<UIOptionsContainer>();
+            
             _captions = AddUIComponent<UICaptionContainer>();
             _captions.SortDelegate = SortDistrictLinesMethod;
+
             districtLineLabels = new List<GameObject>();
         }
 
@@ -131,19 +134,20 @@ namespace ResourceIndustryDistrict
         }
 
 
-        public void PopulateDistrictLineLabels(string sortFieldName = "Name", bool ascending = true)
+        public void PopulateDistrictLineLabels(string sortFieldName = "Name", bool ascending = true, bool totals = true)
         {
             foreach (var index in DistrictResourceCalculator.GetResourceDistribution())
             {
                 var go = new GameObject();
                 var uic = go.AddComponent<ResourceIndustryDistrictLineRow>();
                 uic.Name =      index.Name;
-                uic.Oil = index.GetPrecentage(index.Oil);
-                uic.Farming = index.GetPrecentage(index.Farming);
-                uic.Ore = index.GetPrecentage(index.Ore);
-                uic.Forest = index.GetPrecentage(index.Forest);
-                uic.Size =      index.Size;
-                uic.Type =      index.Type;
+                uic.Oil     = totals ? index.Oil : index.GetPrecentage(index.Oil);
+                uic.Farming = totals ? index.Farming : index.GetPrecentage(index.Farming);
+                uic.Ore     = totals ? index.Ore : index.GetPrecentage(index.Ore);
+                uic.Forest  = totals ? index.Forest : index.GetPrecentage(index.Forest);
+                uic.Size    = index.Size;
+                uic.Type    = index.Type;
+                uic.totals = totals;
 
                 districtLineLabels.Add(go);
             }
@@ -173,7 +177,7 @@ namespace ResourceIndustryDistrict
         public void SortDistrictLinesMethod(string sortFieldName = "Name", bool ascending = true)
         {
             ClearDistrictLineLabels();
-            PopulateDistrictLineLabels(sortFieldName, ascending);
+            PopulateDistrictLineLabels(sortFieldName, ascending, _options._totals.IsChecked);
         }
     }
 }

@@ -37,7 +37,9 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="LineComparer.cs" />
+    <Compile Include="UIOptionsContainer.cs" />
     <Compile Include="UICaptionContainer.cs" />
+    <Compile Include="UICustomCheckboxcs.cs" />
     <Compile Include="UITitleContainer.cs" />
     <Compile Include="ResourceIndustryDistrictLineRow.cs" />
     <Compile Include="ResourceIndustryDistrictWindow.cs" />
