@@ -81,7 +81,7 @@ namespace ResourceIndustryDistrict
 
             _panelForScrollPanel.width = width - 6;
             //_captions reporting 450 height? fixed value of 20
-            _panelForScrollPanel.height = height - _title.height - 20 - autoLayoutPadding.bottom * 4 - autoLayoutPadding.top * 4;
+            _panelForScrollPanel.height = height - _title.height - 20 * 2 - autoLayoutPadding.bottom * 4 - autoLayoutPadding.top * 4;
             
             // taken from http://www.reddit.com/r/CitiesSkylinesModding/comments/2zrz0k/extended_public_transport_ui_provides_addtional/cpnet5q
             _scrollablePanel = _panelForScrollPanel.AddUIComponent<UIScrollablePanel>();
