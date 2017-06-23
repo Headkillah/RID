@@ -36,17 +36,17 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="LineComparer.cs" />
-    <Compile Include="UIOptionsContainer.cs" />
-    <Compile Include="UICaptionContainer.cs" />
-    <Compile Include="UICustomCheckboxcs.cs" />
-    <Compile Include="UITitleContainer.cs" />
-    <Compile Include="ResourceIndustryDistrictLineRow.cs" />
-    <Compile Include="ResourceIndustryDistrictWindow.cs" />
-    <Compile Include="ResourceIndustryDistrictLoading.cs" />
-    <Compile Include="DistrictResourceCalculator.cs" />
-    <Compile Include="DistrictResourceData.cs" />
-    <Compile Include="ResourceIndustryDistrictMod.cs" />
+    <Compile Include="UI\LineComparer.cs" />
+    <Compile Include="UI\UIOptionsContainer.cs" />
+    <Compile Include="UI\UICaptionContainer.cs" />
+    <Compile Include="UI\UICustomCheckboxcs.cs" />
+    <Compile Include="UI\UITitleContainer.cs" />
+    <Compile Include="UI\ResourceIndustryDistrictLineRow.cs" />
+    <Compile Include="UI\ResourceIndustryDistrictWindow.cs" />
+    <Compile Include="UI\ResourceIndustryDistrictLoading.cs" />
+    <Compile Include="Logic\DistrictResourceCalculator.cs" />
+    <Compile Include="Logic\DistrictResourceData.cs" />
+    <Compile Include="UI\ResourceIndustryDistrictMod.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
