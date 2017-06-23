@@ -4,14 +4,13 @@ using System.Linq;
 
 namespace ResourceIndustryDistrict
 {
-    class DistrictResourceCalculator
+    class DistrictResource
     {
-        static List<int> namedDistricts = new List<int>();
+        public static List<DistrictResourceData> districtResourceList = new List<DistrictResourceData>();
+        private static List<int> namedDistricts = new List<int>();
 
-        static public List<DistrictResourceData> GetResourceDistribution()
+        static public void Calculate()
         {
-            List<DistrictResourceData> calculatedResources = new List<DistrictResourceData>();
-
             NaturalResourceManager.ResourceCell[] resourcesFromMap = new NaturalResourceManager.ResourceCell[NaturalResourceManager.instance.m_naturalResources.Length];
             Array.Copy(NaturalResourceManager.instance.m_naturalResources, resourcesFromMap, NaturalResourceManager.instance.m_naturalResources.Length);
 
@@ -22,15 +21,15 @@ namespace ResourceIndustryDistrict
                 string districtName = GetDistrictName(districtId);
                 if (districtName != null)
                 {
-                    DistrictResourceData result = calculatedResources.Find(x => x.Name.Contains(districtName));
+                    DistrictResourceData result = districtResourceList.Find(x => x.Name.Contains(districtName));
                     if (result == null)
                     {
                         District district = (District)DistrictManager.instance.m_districts.m_buffer.GetValue(districtId);
                         int districtType = (int)district.m_specializationPolicies;
-                        calculatedResources.Add(new DistrictResourceData() { Name = districtName ,  Type = districtType });
-                        result = calculatedResources[calculatedResources.Count - 1];
+                        districtResourceList.Add(new DistrictResourceData() { Name = districtName ,  Type = districtType });
+                        result = districtResourceList[districtResourceList.Count - 1];
                     }
-                    int resouceIndex = CalculateResourceIndex(i);
+                    int resouceIndex = GetResourceIndex(i);
                     int oreFromMap = resourcesFromMap[resouceIndex].m_ore;
                     int oilFromMap = resourcesFromMap[resouceIndex].m_oil;
                     int forestFromMap = resourcesFromMap[resouceIndex].m_forest;
@@ -52,10 +51,9 @@ namespace ResourceIndustryDistrict
                     result.Size++;
                 }
             }
-            return calculatedResources;
         }
 
-        static public int CalculateResourceIndex(int districtIndex)
+        static public int GetResourceIndex(int districtIndex)
         {
             int row = districtIndex / 512;
             int col = districtIndex % 512;

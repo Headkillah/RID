@@ -133,35 +133,30 @@ namespace ResourceIndustryDistrict
             };
         }
 
+        public void UpdateDistrictLineLabels(string sortFieldName = "Name", bool ascending = true, bool totals = true)
+        {
+            foreach (var index in DistrictResource.districtResourceList)
+            {
+                int counter = 0;
+                var go = new GameObject();
+                var uic = districtLineLabels[counter].GetComponent<ResourceIndustryDistrictLineRow>();
+                SetFields(uic, index, totals);   
+                counter++;
+            }
+            SortAndAdd(sortFieldName, ascending);
+        }
 
         public void PopulateDistrictLineLabels(string sortFieldName = "Name", bool ascending = true, bool totals = true)
         {
-            foreach (var index in DistrictResourceCalculator.GetResourceDistribution())
+            foreach (var index in DistrictResource.districtResourceList)
             {
                 var go = new GameObject();
                 var uic = go.AddComponent<ResourceIndustryDistrictLineRow>();
-                uic.Name =      index.Name;
-                uic.Oil     = totals ? index.Oil : index.GetPrecentage(index.Oil);
-                uic.Farming = totals ? index.Farming : index.GetPrecentage(index.Farming);
-                uic.Ore     = totals ? index.Ore : index.GetPrecentage(index.Ore);
-                uic.Forest  = totals ? index.Forest : index.GetPrecentage(index.Forest);
-                uic.Size    = index.Size;
-                uic.Type    = index.Type;
-                uic.totals = totals;
+                SetFields(uic, index, totals);
 
                 districtLineLabels.Add(go);
             }
-
-            districtLineLabels.Sort(new LineComparer(sortFieldName, ascending));
-
-            bool odd = false;
-            foreach (var go in districtLineLabels)
-            {
-                _scrollablePanel.AttachUIComponent(go);
-                go.GetComponent<ResourceIndustryDistrictLineRow>().IsOdd = odd;
-                odd = !odd;
-
-            }
+            SortAndAdd(sortFieldName, ascending);
         }
 
         public void ClearDistrictLineLabels()
@@ -174,10 +169,42 @@ namespace ResourceIndustryDistrict
             districtLineLabels.Clear();
         }
 
-        public void SortDistrictLinesMethod(string sortFieldName = "Name", bool ascending = true)
+        public void CreateDistrictLinesMethod(string sortFieldName = "Name", bool ascending = true)
         {
             ClearDistrictLineLabels();
             PopulateDistrictLineLabels(sortFieldName, ascending, _options._totals.IsChecked);
         }
+
+        public void SortDistrictLinesMethod(string sortFieldName = "Name", bool ascending = true)
+        {
+            UpdateDistrictLineLabels(sortFieldName, ascending, _options._totals.IsChecked);
+        }
+
+        void SortAndAdd(string sortFieldName, bool ascending)
+        {
+            districtLineLabels.Sort(new LineComparer(sortFieldName, ascending));
+
+            bool odd = false;
+            foreach (var go in districtLineLabels)
+            {
+                _scrollablePanel.AttachUIComponent(go);
+                go.GetComponent<ResourceIndustryDistrictLineRow>().IsOdd = odd;
+                odd = !odd;
+
+            }
+        }
+
+        void SetFields(ResourceIndustryDistrictLineRow uic, DistrictResourceData index, bool totals)
+        {
+            uic.Name = index.Name;
+            uic.Oil = totals ? index.Oil : index.GetPrecentage(index.Oil);
+            uic.Farming = totals ? index.Farming : index.GetPrecentage(index.Farming);
+            uic.Ore = totals ? index.Ore : index.GetPrecentage(index.Ore);
+            uic.Forest = totals ? index.Forest : index.GetPrecentage(index.Forest);
+            uic.Size = index.Size;
+            uic.Type = index.Type;
+            uic.totals = totals;
+        }
+
     }
 }

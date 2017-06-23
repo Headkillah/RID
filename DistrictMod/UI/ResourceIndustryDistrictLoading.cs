@@ -61,10 +61,11 @@ namespace ResourceIndustryDistrict
 
             if (!this.buildingWindow.isVisible)
             {
+                DistrictResource.Calculate();
                 this.buildingWindow.isVisible = true;
                 this.buildingWindow.BringToFront();
                 this.buildingWindow.Show();
-                this.buildingWindow.SortDistrictLinesMethod();
+                this.buildingWindow.CreateDistrictLinesMethod();
             }
             else
             {

@@ -31,14 +31,7 @@ namespace ResourceIndustryDistrict
             {
                 _totals.IsChecked = !_totals.IsChecked;
 
-                if (!_totals.IsChecked)
-                {
-                    parent.GetComponent<ResourceIndustryDistrictWindow>().SortDistrictLinesMethod();
-                }
-                else
-                {
-                    parent.GetComponent<ResourceIndustryDistrictWindow>().SortDistrictLinesMethod();
-                }
+                parent.GetComponent<ResourceIndustryDistrictWindow>().SortDistrictLinesMethod();
             };
 
             width = 550;
