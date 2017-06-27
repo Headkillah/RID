@@ -11,6 +11,7 @@ namespace ResourceIndustryDistrict
 
         static public void Calculate()
         {
+            districtResourceList.Clear();
             NaturalResourceManager.ResourceCell[] resourcesFromMap = new NaturalResourceManager.ResourceCell[NaturalResourceManager.instance.m_naturalResources.Length];
             Array.Copy(NaturalResourceManager.instance.m_naturalResources, resourcesFromMap, NaturalResourceManager.instance.m_naturalResources.Length);
 

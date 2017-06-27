@@ -135,19 +135,29 @@ namespace ResourceIndustryDistrict
 
         public void UpdateDistrictLineLabels(string sortFieldName = "Name", bool ascending = true, bool totals = true)
         {
+            SortAndAdd(sortFieldName, ascending, totals);
+
+            int counter = 0;
             foreach (var index in DistrictResource.districtResourceList)
             {
-                int counter = 0;
                 var go = new GameObject();
                 var uic = districtLineLabels[counter].GetComponent<ResourceIndustryDistrictLineRow>();
-                SetFields(uic, index, totals);   
+                SetFields(uic, index, totals);
+                DebugOutputPanel.AddMessage(PluginManager.MessageType.Message, $"counter ${counter}");
                 counter++;
             }
-            SortAndAdd(sortFieldName, ascending);
+
+            foreach (var go in districtLineLabels)
+            {
+                _scrollablePanel.AttachUIComponent(go);
+            }
+
         }
 
         public void PopulateDistrictLineLabels(string sortFieldName = "Name", bool ascending = true, bool totals = true)
         {
+            SortAndAdd(sortFieldName, ascending, totals);
+
             foreach (var index in DistrictResource.districtResourceList)
             {
                 var go = new GameObject();
@@ -156,7 +166,15 @@ namespace ResourceIndustryDistrict
 
                 districtLineLabels.Add(go);
             }
-            SortAndAdd(sortFieldName, ascending);
+
+            bool odd = false;
+            foreach (var go in districtLineLabels)
+            {
+                _scrollablePanel.AttachUIComponent(go);
+                go.GetComponent<ResourceIndustryDistrictLineRow>().IsOdd = odd;
+                odd = !odd;
+
+            }
         }
 
         public void ClearDistrictLineLabels()
@@ -180,27 +198,18 @@ namespace ResourceIndustryDistrict
             UpdateDistrictLineLabels(sortFieldName, ascending, _options._totals.IsChecked);
         }
 
-        void SortAndAdd(string sortFieldName, bool ascending)
+        void SortAndAdd(string sortFieldName, bool ascending, bool totals)
         {
-            districtLineLabels.Sort(new LineComparer(sortFieldName, ascending));
-
-            bool odd = false;
-            foreach (var go in districtLineLabels)
-            {
-                _scrollablePanel.AttachUIComponent(go);
-                go.GetComponent<ResourceIndustryDistrictLineRow>().IsOdd = odd;
-                odd = !odd;
-
-            }
+            DistrictResource.districtResourceList.Sort(new LineComparer(sortFieldName, ascending, totals));
         }
 
         void SetFields(ResourceIndustryDistrictLineRow uic, DistrictResourceData index, bool totals)
         {
-            uic.Name = index.Name;
             uic.Oil = totals ? index.Oil : index.GetPrecentage(index.Oil);
             uic.Farming = totals ? index.Farming : index.GetPrecentage(index.Farming);
             uic.Ore = totals ? index.Ore : index.GetPrecentage(index.Ore);
             uic.Forest = totals ? index.Forest : index.GetPrecentage(index.Forest);
+            uic.Name = index.Name;
             uic.Size = index.Size;
             uic.Type = index.Type;
             uic.totals = totals;

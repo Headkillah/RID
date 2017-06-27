@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ColossalFramework.Plugins;
+using System;
 using System.Collections.Generic;
 using System.Reflection;
 using System.Text.RegularExpressions;
@@ -6,24 +7,39 @@ using UnityEngine;
 
 namespace ResourceIndustryDistrict
 {
-    public class LineComparer : Comparer<GameObject>
+    public class LineComparer : Comparer<DistrictResourceData>
     {
         private string _sortFieldName;
         private bool _ascending;
+        private bool _totals;
 
-        public LineComparer(string sortFieldName = "Name", bool ascending = true) : base()
+        public LineComparer(string sortFieldName = "Name", bool ascending = true, bool totals = false) : base()
         {
             _sortFieldName = sortFieldName;
             _ascending = ascending;
+            _totals = totals;
         }
 
-        public override int Compare(GameObject x, GameObject y)
+        public override int Compare(DistrictResourceData x, DistrictResourceData y)
         {
             int compare;
-            PropertyInfo xproperty = x.GetComponent<ResourceIndustryDistrictLineRow>().GetType().GetProperty(_sortFieldName);
-            PropertyInfo yproperty = y.GetComponent<ResourceIndustryDistrictLineRow>().GetType().GetProperty(_sortFieldName);
-            var lhs = xproperty.GetValue(x.GetComponent<ResourceIndustryDistrictLineRow>(), null);
-            var rhs = yproperty.GetValue(y.GetComponent<ResourceIndustryDistrictLineRow>(), null);
+            PropertyInfo xproperty = x.GetType().GetProperty(_sortFieldName);
+            PropertyInfo yproperty = y.GetType().GetProperty(_sortFieldName);
+            var lhs = xproperty.GetValue(x, null);
+            var rhs = yproperty.GetValue(y, null);
+
+            Type lhsType = lhs.GetType();
+            Type rhsType = rhs.GetType();
+            if (lhsType.IsPrimitive && rhsType.IsPrimitive)
+            {
+                if (!_totals)
+                {
+                    lhs = x.GetPrecentage((int)lhs);
+                    rhs = y.GetPrecentage((int)rhs);
+                }
+                compare = ((IComparable)Convert.ToDouble(lhs)).CompareTo(Convert.ToDouble(rhs));
+                return _ascending ? compare : compare * -1;
+            }
 
             if (lhs == rhs)
                 return 0;

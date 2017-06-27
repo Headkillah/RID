@@ -26,7 +26,7 @@ namespace ResourceIndustryDistrict
         public double Farming { get; set; }
         public double Ore { get; set; }
         public double Forest { get; set; }
-        public int Size { get; set; }
+        public double Size { get; set; }
 
         public bool IsOdd { get; set; }
 
@@ -58,6 +58,7 @@ namespace ResourceIndustryDistrict
                 case 32:
                     return "IconPolicyTourist";
                 default:
+                    DebugOutputPanel.AddMessage(PluginManager.MessageType.Message, $"DistrictType {type}");
                     return "";
             }
         }
@@ -81,20 +82,19 @@ namespace ResourceIndustryDistrict
             forestLabel.relativePosition = new Vector2(360, 0);
             sizeLabel.relativePosition = new Vector2(430, 0);
             districtTypeLabel.relativePosition = new Vector2(508 , 8);
-            
-            districtNameLabel.text = Name.ToString();
-            sizeLabel.text = Size.ToString();
-            
-            districtTypeLabel.spriteName = GetSpriteFromType(Type);
+
             districtTypeLabel.size = new Vector2(25, 25);
 
-            districtNameLabel.textColor = new Color32(182, 221, 254, 255);
-            oilLabel.textColor = Oil == 0 ? new Color32(165, 165, 165, 128) : new Color32(182, 221, 254, 255);
-            farmingLabel.textColor = Farming == 0 ? new Color32(165, 165, 165, 128) : new Color32(182, 221, 254, 255);
-            oreLabel.textColor = Ore == 0 ? new Color32(165, 165, 165, 128) : new Color32(182, 221, 254, 255);
-            forestLabel.textColor = Forest == 0 ? new Color32(165, 165, 165, 128) : new Color32(182, 221, 254, 255);
-            sizeLabel.textColor = new Color32(182, 221, 254, 255);
-
+            // zebra stripes background
+            backgroundSprite = "GenericPanelLight";
+            if (IsOdd)
+            {
+                color = new Color32(150, 150, 150, 255);
+            }
+            else
+            {
+                color = new Color32(130, 130, 130, 255);
+            }
 
             eventMouseHover += (component, param) =>
             {
@@ -109,20 +109,12 @@ namespace ResourceIndustryDistrict
                     color = new Color32(130, 130, 130, 255);
             };
 
-
             districtNameLabel.textScale = 0.8f;
             oilLabel.textScale = 0.8f;
             farmingLabel.textScale = 0.8f;
             oreLabel.textScale = 0.8f;
             forestLabel.textScale = 0.8f;
             sizeLabel.textScale = 0.8f;           
-            
-            // zebra stripes background
-            backgroundSprite = "GenericPanelLight";
-            if (IsOdd)
-                color = new Color32(150, 150, 150, 255);
-            else
-                color = new Color32(130, 130, 130, 255);
 
             // center elements in row
             UIComponent[] children = GetComponentsInChildren<UIComponent>();
@@ -143,6 +135,16 @@ namespace ResourceIndustryDistrict
             farmingLabel.text = totals ? Farming.ToString() : Farming.ToString("P");
             oreLabel.text = totals ? Ore.ToString() : Ore.ToString("P");
             forestLabel.text = totals ? Forest.ToString() : Forest.ToString("P");
+            districtNameLabel.text = Name.ToString();
+            sizeLabel.text = Size.ToString();
+            districtTypeLabel.spriteName = GetSpriteFromType(Type);
+
+            districtNameLabel.textColor = new Color32(182, 221, 254, 255);
+            oilLabel.textColor = Oil == 0 ? new Color32(165, 165, 165, 128) : new Color32(182, 221, 254, 255);
+            farmingLabel.textColor = Farming == 0 ? new Color32(165, 165, 165, 128) : new Color32(182, 221, 254, 255);
+            oreLabel.textColor = Ore == 0 ? new Color32(165, 165, 165, 128) : new Color32(182, 221, 254, 255);
+            forestLabel.textColor = Forest == 0 ? new Color32(165, 165, 165, 128) : new Color32(182, 221, 254, 255);
+            sizeLabel.textColor = new Color32(182, 221, 254, 255);
         }
     }
 }
