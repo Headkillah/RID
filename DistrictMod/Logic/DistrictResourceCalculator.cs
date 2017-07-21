@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 
 namespace ResourceIndustryDistrict
@@ -54,14 +55,38 @@ namespace ResourceIndustryDistrict
             }
         }
 
+        static public void WriteFile()
+        {
+            NaturalResourceManager.ResourceCell[] resourcesFromMap = new NaturalResourceManager.ResourceCell[NaturalResourceManager.instance.m_naturalResources.Length];
+            Array.Copy(NaturalResourceManager.instance.m_naturalResources, resourcesFromMap, NaturalResourceManager.instance.m_naturalResources.Length);
+
+            using (StreamWriter writeText = new StreamWriter("D:\\Workspace\\Cities\\oil2.txt"))
+            {
+                int sqrt = (int)(Math.Sqrt(NaturalResourceManager.instance.m_naturalResources.Length));
+                int sqrtDistrict = (int)(Math.Sqrt(DistrictManager.instance.m_districtGrid.Length));
+                writeText.WriteLine($"Lenght SQRT: {sqrt} and {sqrtDistrict}");
+                for (int j = 0; j < sqrt; j++)
+                {
+                    string line = "";
+                    for (int k = 0; k < sqrt; k++)
+                    {
+                        if (resourcesFromMap[sqrt * j + k].m_oil > 0)
+                        {
+                            line += resourcesFromMap[sqrt * j + k].m_oil;
+                        }
+                        else
+                        {
+                            line += "_";
+                        }
+                    }
+                    writeText.WriteLine(line);
+                }
+            }
+        }
+
         static public int GetResourceIndex(int districtIndex)
         {
-            int row = districtIndex / 512;
-            int col = districtIndex % 512;
-            double newRow = row * 5 / 9;
-            double newCol = col * 5 / 9;
-            double val = ((113 + newRow) * 512) + 113 + newCol;
-            return (int)val;
+            return districtIndex;
         }
 
         static public string GetDistrictName(int districtID)
