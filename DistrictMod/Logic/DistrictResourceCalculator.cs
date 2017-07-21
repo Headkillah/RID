@@ -12,7 +12,7 @@ namespace ResourceIndustryDistrict
 
         static public void Calculate()
         {
-            districtResourceList.Clear();
+            List<DistrictResourceData> latestDistrictResourceList = new List<DistrictResourceData>();
             NaturalResourceManager.ResourceCell[] resourcesFromMap = new NaturalResourceManager.ResourceCell[NaturalResourceManager.instance.m_naturalResources.Length];
             Array.Copy(NaturalResourceManager.instance.m_naturalResources, resourcesFromMap, NaturalResourceManager.instance.m_naturalResources.Length);
 
@@ -23,13 +23,13 @@ namespace ResourceIndustryDistrict
                 string districtName = GetDistrictName(districtId);
                 if (districtName != null)
                 {
-                    DistrictResourceData result = districtResourceList.Find(x => x.Name.Contains(districtName));
+                    DistrictResourceData result = latestDistrictResourceList.Find(x => x.Name.Contains(districtName));
                     if (result == null)
                     {
                         District district = (District)DistrictManager.instance.m_districts.m_buffer.GetValue(districtId);
                         int districtType = (int)district.m_specializationPolicies;
-                        districtResourceList.Add(new DistrictResourceData() { Name = districtName ,  Type = districtType });
-                        result = districtResourceList[districtResourceList.Count - 1];
+                        latestDistrictResourceList.Add(new DistrictResourceData() { Name = districtName, Type = districtType });
+                        result = latestDistrictResourceList[latestDistrictResourceList.Count - 1];
                     }
                     int resouceIndex = GetResourceIndex(i);
                     int oreFromMap = resourcesFromMap[resouceIndex].m_ore;
@@ -53,6 +53,24 @@ namespace ResourceIndustryDistrict
                     result.Size++;
                 }
             }
+			
+            // now check for decline
+            foreach (DistrictResourceData d in latestDistrictResourceList)
+            {
+                var oldData = districtResourceList.Find(f => f.Name == d.Name);
+                if (oldData != null)
+                {
+                    if (oldData.Oil > d.Oil && d.GetPrecentage(d.Oil) < 0.05)
+                    {
+                        d.OilDecline = true;
+                    }
+                    if (oldData.Ore > d.Ore && d.GetPrecentage(d.Ore) < 0.05)
+                    {
+                        d.OreDecline = true;
+                    }
+                }
+            }
+            districtResourceList = latestDistrictResourceList;
         }
 
         static public void WriteFile()

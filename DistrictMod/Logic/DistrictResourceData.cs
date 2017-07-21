@@ -12,6 +12,8 @@ namespace ResourceIndustryDistrict
         public int Forest { get; set; }
         public int Oil { get; set; }
         public int Ore { get; set; }
+        public bool OreDecline { get; set; }
+        public bool OilDecline { get; set; }
 
         public bool Equals(DistrictResourceData other)
         {

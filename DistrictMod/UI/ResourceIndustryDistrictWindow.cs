@@ -213,6 +213,8 @@ namespace ResourceIndustryDistrict
             uic.Size = index.Size;
             uic.Type = index.Type;
             uic.totals = totals;
+            uic.OilDecline = index.OilDecline;
+            uic.OreDecline = index.OreDecline;
         }
 
     }
