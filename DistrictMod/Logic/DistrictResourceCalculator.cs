@@ -5,20 +5,26 @@ using System.Linq;
 
 namespace ResourceIndustryDistrict
 {
-    class DistrictResource
+    public class DistrictResource
     {
+
         public static List<DistrictResourceData> districtResourceList = new List<DistrictResourceData>();
         private static List<int> namedDistricts = new List<int>();
+
+        public static Func<NaturalResourceManager.ResourceCell[]> getResource;
+        public static Func<DistrictManager.Cell[]> getDistricts;
+        public static Func<Array8<District>> getDistrictNames;
+        public static Func<int, string> getDistrictNameFromId;
 
         static public void Calculate()
         {
             List<DistrictResourceData> latestDistrictResourceList = new List<DistrictResourceData>();
-            NaturalResourceManager.ResourceCell[] resourcesFromMap = new NaturalResourceManager.ResourceCell[NaturalResourceManager.instance.m_naturalResources.Length];
-            Array.Copy(NaturalResourceManager.instance.m_naturalResources, resourcesFromMap, NaturalResourceManager.instance.m_naturalResources.Length);
-
-            for (int i = 0; i < DistrictManager.instance.m_districtGrid.Length; i++)
+            NaturalResourceManager.ResourceCell[] resourcesFromMap = getResource();
+            DistrictManager.Cell[] districts = getDistricts();
+            
+            for (int i = 0; i < districts.Length; i++)
             {
-                DistrictManager.Cell cell = DistrictManager.instance.m_districtGrid[i];
+                DistrictManager.Cell cell = districts[i];
                 int districtId = GetMatchingDistrictId(cell);
                 string districtName = GetDistrictName(districtId);
                 if (districtName != null)
@@ -26,7 +32,7 @@ namespace ResourceIndustryDistrict
                     DistrictResourceData result = latestDistrictResourceList.Find(x => x.Name.Contains(districtName));
                     if (result == null)
                     {
-                        District district = (District)DistrictManager.instance.m_districts.m_buffer.GetValue(districtId);
+                        District district = (District)getDistrictNames().m_buffer.GetValue(districtId);
                         int districtType = (int)district.m_specializationPolicies;
                         latestDistrictResourceList.Add(new DistrictResourceData() { Name = districtName, Type = districtType });
                         result = latestDistrictResourceList[latestDistrictResourceList.Count - 1];
@@ -73,12 +79,12 @@ namespace ResourceIndustryDistrict
             districtResourceList = latestDistrictResourceList;
         }
 
-        static public void WriteFile()
+        static public void WriteResourceFile()
         {
             NaturalResourceManager.ResourceCell[] resourcesFromMap = new NaturalResourceManager.ResourceCell[NaturalResourceManager.instance.m_naturalResources.Length];
             Array.Copy(NaturalResourceManager.instance.m_naturalResources, resourcesFromMap, NaturalResourceManager.instance.m_naturalResources.Length);
 
-            using (StreamWriter writeText = new StreamWriter("D:\\Workspace\\Cities\\oil2.txt"))
+            using (StreamWriter writeText = new StreamWriter("D:\\Workspace\\Cities\\resources.txt"))
             {
                 int sqrt = (int)(Math.Sqrt(NaturalResourceManager.instance.m_naturalResources.Length));
                 int sqrtDistrict = (int)(Math.Sqrt(DistrictManager.instance.m_districtGrid.Length));
@@ -102,6 +108,37 @@ namespace ResourceIndustryDistrict
             }
         }
 
+        static public void WriteDistrictsFile()
+        {
+            var districts = getDistricts();
+
+            using (StreamWriter writeText = new StreamWriter("D:\\Workspace\\Cities\\districts.txt"))
+            {
+                int sqrt = (int)(Math.Sqrt(districts.Length));
+                int sqrtDistrict = (int)(Math.Sqrt(districts.Length));
+                writeText.WriteLine($"Lenght SQRT: {sqrt} and {sqrtDistrict}");
+                for (int j = 0; j < sqrt; j++)
+                {
+                    string line = "";
+                    for (int k = 0; k < sqrt; k++)
+                    {
+                        DistrictManager.Cell cell = districts[j* sqrt + k];
+                        int districtId = GetMatchingDistrictId(cell);
+
+                        if (districtId != 0)
+                        {
+                            line += Convert.ToChar(districtId);
+                        }
+                        else
+                        {
+                            line += "_";
+                        }
+                    }
+                    writeText.WriteLine(line);
+                }
+            }
+        }
+
         static public int GetResourceIndex(int districtIndex)
         {
             return districtIndex;
@@ -111,15 +148,15 @@ namespace ResourceIndustryDistrict
         {
             if (namedDistricts.Contains(districtID))
             {
-                return DistrictManager.instance.GetDistrictName(districtID);
+                return getDistrictNameFromId(districtID);
             }
 
             for (int i = 0; i < 128; i++)
             {
-                if (DistrictManager.instance.GetDistrictName(i) != null)
+                if (getDistrictNameFromId(i) != null)
                 {
                     namedDistricts.Add(districtID);
-                    return DistrictManager.instance.GetDistrictName(districtID);
+                    return getDistrictNameFromId(districtID);
                 }
             }
             return null;

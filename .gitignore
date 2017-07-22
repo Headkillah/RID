@@ -3,4 +3,6 @@
 .vs/
 DistrictMod/obj/*
 DistrictMod/bin/*
+RID-Test/obj/*
+RID-Test/bin/*
 packages/*

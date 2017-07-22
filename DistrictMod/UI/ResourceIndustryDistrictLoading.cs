@@ -61,6 +61,27 @@ namespace ResourceIndustryDistrict
 
             if (!this.buildingWindow.isVisible)
             {
+                DistrictResource.getResource = () =>
+                {
+                    NaturalResourceManager.ResourceCell[] resourcesFromMap = new NaturalResourceManager.ResourceCell[NaturalResourceManager.instance.m_naturalResources.Length];
+                    Array.Copy(NaturalResourceManager.instance.m_naturalResources, resourcesFromMap, resourcesFromMap.Length);
+                    return resourcesFromMap;
+                };
+                DistrictResource.getDistricts = () =>
+                {
+                    DistrictManager.Cell[] districts = DistrictManager.instance.m_districtGrid;
+                    return districts;
+
+                };
+                DistrictResource.getDistrictNames = () =>
+                {
+                    Array8<District> districtNames = DistrictManager.instance.m_districts;
+                    return districtNames;
+                };
+                DistrictResource.getDistrictNameFromId = (districtId) =>
+                {
+                    return DistrictManager.instance.GetDistrictName(districtId);
+                };
                 DistrictResource.Calculate();
                 this.buildingWindow.isVisible = true;
                 this.buildingWindow.BringToFront();
