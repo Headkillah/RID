@@ -144,14 +144,12 @@ namespace ResourceIndustryDistrict
             districtNameLabel.textColor = new Color32(182, 221, 254, 255);
             farmingLabel.textColor = Farming == 0 ? new Color32(165, 165, 165, 128) : new Color32(182, 221, 254, 255);
             forestLabel.textColor = Forest == 0 ? new Color32(165, 165, 165, 128) : new Color32(182, 221, 254, 255);
-            oreLabel.textColor = Ore == 0 ? new Color32(165, 165, 165, 128) : new Color32(182, 221, 254, 255);
             oreLabel.textColor = OreDecline ? new Color32(255, 182, 193, 128) : new Color32(182, 221, 254, 255);
-            oilLabel.textColor = Oil == 0 ? new Color32(165, 165, 165, 128) : new Color32(182, 221, 254, 255);
+            oreLabel.textColor = Ore == 0 ? new Color32(165, 165, 165, 128) : new Color32(182, 221, 254, 255);
             oilLabel.textColor = OilDecline ? new Color32(255, 182, 193, 128) : new Color32(182, 221, 254, 255);
-
-            sizeLabel.textColor = new Color32(182, 221, 254, 255);
-
+            oilLabel.textColor = Oil == 0 ? new Color32(165, 165, 165, 128) : new Color32(182, 221, 254, 255);
             
+            sizeLabel.textColor = new Color32(182, 221, 254, 255);
         }
     }
 }

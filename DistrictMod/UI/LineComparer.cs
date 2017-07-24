@@ -32,7 +32,7 @@ namespace ResourceIndustryDistrict
             Type rhsType = rhs.GetType();
             if (lhsType.IsPrimitive && rhsType.IsPrimitive)
             {
-                if (!_totals)
+                if (!_totals && _sortFieldName != "Size")
                 {
                     lhs = x.GetPrecentage((int)lhs);
                     rhs = y.GetPrecentage((int)rhs);

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ResourceIndustryDistrict;
+using System;
 using Xunit;
 
 namespace RID_Test
@@ -30,6 +31,8 @@ namespace RID_Test
                 return districtId.ToString();
             };
             ResourceIndustryDistrict.DistrictResource.Calculate();
+
+            ResourceIndustryDistrict.DistrictResource.districtResourceList.Sort(new LineComparer("Size", true, false));
         }
 
         [Fact]
