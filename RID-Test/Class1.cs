@@ -32,7 +32,30 @@ namespace RID_Test
             };
             ResourceIndustryDistrict.DistrictResource.Calculate();
 
+            ResourceIndustryDistrict.DistrictResource.Calculate();
+
+            ResourceIndustryDistrict.DistrictResource.Calculate();
+
             ResourceIndustryDistrict.DistrictResource.districtResourceList.Sort(new LineComparer("Size", true, false));
+        }
+
+        [Fact]
+        public void GetDistrictIndexTest()
+        {
+            DistrictResource.GetDistrictIndex(0);
+
+            DistrictResource.GetDistrictIndex(113 * 512 + 113);
+            DistrictResource.GetDistrictIndex(113 * 512 + 114);
+            DistrictResource.GetDistrictIndex(114 * 512 + 114);
+
+            DistrictResource.GetDistrictIndex(170 * 512 + 123);
+            DistrictResource.GetDistrictIndex(256 * 512 + 256);
+            DistrictResource.GetDistrictIndex(256 * 512 + 257);
+            DistrictResource.GetDistrictIndex(257 * 512 + 257);
+
+            DistrictResource.GetDistrictIndex(398 * 512 + 398);
+            DistrictResource.GetDistrictIndex(398 * 512 + 399);
+            DistrictResource.GetDistrictIndex(399 * 512 + 399);
         }
 
         [Fact]
