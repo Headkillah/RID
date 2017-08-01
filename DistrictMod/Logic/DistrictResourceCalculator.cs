@@ -85,7 +85,7 @@ namespace ResourceIndustryDistrict
             List<DistrictResourceData> latestDistrictResourceList = new List<DistrictResourceData>();
             NaturalResourceManager.ResourceCell[] resourcesFromMap = getResource();
             DistrictManager.Cell[] districts = getDistricts();
-            
+
             for (int i = 0; i < resourcesFromMap.Length; i++)
             {
                 int oreFromMap = resourcesFromMap[i].m_ore;
@@ -122,7 +122,7 @@ namespace ResourceIndustryDistrict
 
                         result.Size++;
                     }
-                    
+
                 }
             }
 
@@ -200,24 +200,27 @@ namespace ResourceIndustryDistrict
                 int sqrt = (int)(Math.Sqrt(districts.Length));
                 int sqrtDistrict = (int)(Math.Sqrt(districts.Length));
                 writeText.WriteLine($"Lenght SQRT: {sqrt} and {sqrtDistrict}");
-                for (int j = 0; j < sqrt; j++)
+                for (int i = 0; i < 8; i++)
                 {
-                    string line = "";
-                    for (int k = 0; k < sqrt; k++)
+                    for (int j = 0; j < sqrt; j++)
                     {
-                        DistrictManager.Cell cell = districts[j* sqrt + k];
-                        int districtId = GetMatchingDistrictId(cell);
+                        string line = "";
+                        for (int k = 0; k < sqrt; k++)
+                        {
+                            DistrictManager.Cell cell = districts[j * sqrt + k];
+                            int districtId = GetDistrictData(cell, i);
 
-                        if (districtId != 0)
-                        {
-                            line += Convert.ToChar(districtId);
+                            if (districtId != 0)
+                            {
+                                line += Convert.ToChar(districtId);
+                            }
+                            else
+                            {
+                                line += "_";
+                            }
                         }
-                        else
-                        {
-                            line += "_";
-                        }
+                        writeText.WriteLine(line);
                     }
-                    writeText.WriteLine(line);
                 }
             }
         }
@@ -283,6 +286,31 @@ namespace ResourceIndustryDistrict
             else
             {
                 return 0;
+            }
+        }
+
+        static public int GetDistrictData(DistrictManager.Cell cell, int val)
+        {
+            switch (val)
+            {
+                case 0:
+                    return cell.m_alpha1;
+                case 1:
+                    return cell.m_alpha2;
+                case 2:
+                    return cell.m_alpha3;
+                case 3:
+                    return cell.m_alpha4;
+                case 4:
+                    return cell.m_district1;
+                case 5:
+                    return cell.m_district2;
+                case 6:
+                    return cell.m_district3;
+                case 7:
+                    return cell.m_district4;
+                default:
+                    return -1;
             }
         }
     }
