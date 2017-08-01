@@ -143,7 +143,6 @@ namespace ResourceIndustryDistrict
                 var go = new GameObject();
                 var uic = districtLineLabels[counter].GetComponent<ResourceIndustryDistrictLineRow>();
                 SetFields(uic, index, totals);
-                DebugOutputPanel.AddMessage(PluginManager.MessageType.Message, $"counter ${counter}");
                 counter++;
             }
 
