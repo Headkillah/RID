@@ -59,6 +59,12 @@ namespace ResourceIndustryDistrict
                     return "IconPolicyLeisure";
                 case 32:
                     return "IconPolicyTourist";
+                case 64:
+                    return "IconPolicyOrganic";
+                case 128:
+                    return "IconPolicySelfsufficient";
+                case 256:
+                    return "IconPolicyHightech";
                 default:
                     //DebugOutputPanel.AddMessage(PluginManager.MessageType.Message, $"DistrictType {type}");
                     return "";
